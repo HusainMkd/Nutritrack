@@ -1,13 +1,20 @@
-import { useState } from 'react';
+"use client";
+import { useContext } from 'react';
+import { MealLoggingContext } from './MealLoggingContext';
 import Camera from '../../../components/Camera';
 import { submitMealImage } from '../../../lib/api';
-import { Card } from '../../../components/ui/card';
+import { useRouter } from 'next/navigation';
+import { useSwipeable } from 'react-swipeable';
 
 export default function MealLoggingPage() {
-  const [image, setImage] = useState<string | null>(null);
-  const [detectedItems, setDetectedItems] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null); // Added error state
+  const {
+    setImage,
+    setDetectedItems,
+    setLoading,
+    setError,
+  } = useContext(MealLoggingContext);
+  
+  const router = useRouter();
 
   const handleImageCapture = async (capturedImage: string) => {
     setImage(capturedImage);
@@ -16,6 +23,7 @@ export default function MealLoggingPage() {
     try {
       const result = await submitMealImage(capturedImage);
       setDetectedItems(result.detectedItems);
+      router.push('/meal-logging/results'); // Navigate to results screen
     } catch (error) {
       console.error(error);
       setError('Failed to analyze the image. Please try again.');
@@ -24,28 +32,24 @@ export default function MealLoggingPage() {
     }
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => router.push('/meal-logging/results'),
+    onSwipedRight: () => router.push('/'), // 
+    trackMouse: true,
+  });
+
   return (
-    <div className="flex flex-col items-center justify-center p-4">
-      <Camera onCapture={handleImageCapture} />
-
-      {loading && <p>Analyzing image...</p>}
-
-      {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
-
-      {detectedItems && (
-        <Card className="mt-4 w-full max-w-md">
-          <h2 className="text-xl font-bold">Detected Items</h2>
-          <ul>
-            {detectedItems.foods.map((food: string, index: number) => (
-              <li key={index}>{food}</li>
-            ))}
-          </ul>
-          {/* Add options to edit or confirm items */}
-          <button className="mt-2 bg-green-500 text-white p-2 rounded">
-            Confirm
-          </button>
-        </Card>
-      )}
+    <div
+      className="fixed inset-0 flex flex-col items-center justify-center bg-white"
+      {...handlers} // Attach swipe handlers
+    >
+      <div className="relative w-full h-full">
+        <Camera onCapture={handleImageCapture} className="w-full h-full" />
+        {/* Information Overlay */}
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-75 p-2 rounded text-center">
+          <p>Align your meal within the frame and capture.</p>
+        </div>
+      </div>
     </div>
   );
 }

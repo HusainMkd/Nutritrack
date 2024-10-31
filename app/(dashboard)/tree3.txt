@@ -1,0 +1,105 @@
+.
+├── LICENSE
+├── README.MD
+├── UserInteractionPlan.MD
+├── app
+│   ├── (dashboard)
+│   │   ├── dashboard
+│   │   │   ├── activity
+│   │   │   │   └── page.tsx
+│   │   │   ├── general
+│   │   │   │   └── page.tsx
+│   │   │   ├── invite-team.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   ├── security
+│   │   │   │   └── page.tsx
+│   │   │   └── settings.tsx
+│   │   ├── layout.tsx
+│   │   ├── meal-logging
+│   │   │   ├── MealLoggingContext.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   ├── results
+│   │   │   │   └── page.tsx
+│   │   │   ├── nutritionalBreakdown
+│   │   │   │   └── page.tsx
+│   │   │   └── trackingIntake
+│   │   │       └── page.tsx
+│   │   ├── page.tsx
+│   │   ├── pricing
+│   │   │   ├── page.tsx
+│   │   │   └── submit-button.tsx
+│   │   └── terminal.tsx
+│   ├── (login)
+│   │   ├── actions.ts
+│   │   ├── login.tsx
+│   │   ├── sign-in
+│   │   │   └── page.tsx
+│   │   └── sign-up
+│   │       └── page.tsx
+│   ├── api
+│   │   ├── meal-analyze
+│   │   │   └── route.ts
+│   │   └── stripe
+│   │       ├── checkout
+│   │       │   └── route.ts
+│   │       └── webhook
+│   │           └── route.ts
+│   ├── components
+│   │   ├── FloatingButton.tsx
+│   │   └── Interactions
+│   │       ├── NutritionalBreakdown.tsx
+│   │       ├── TrackingIntake.tsx
+│   │       └── // Add other interaction components here
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── not-found.tsx
+├── bun.lockb
+├── components
+│   ├── Camera.tsx
+│   └── ui
+│       ├── avatar.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── dropdown-menu.tsx
+│       ├── input.tsx
+│       ├── label.tsx
+│       ├── progress.tsx
+│       └── radio-group.tsx
+├── components.json
+├── drizzle.config.ts
+├── lib
+│   ├── api.ts
+│   ├── auth
+│   │   ├── index.tsx
+│   │   ├── middleware.ts
+│   │   └── session.ts
+│   ├── db
+│   │   ├── drizzle.ts
+│   │   ├── migrate.ts
+│   │   ├── migrations
+│   │   │   ├── 0000_soft_the_anarchist.sql
+│   │   │   └── meta
+│   │   │       ├── 0000_snapshot.json
+│   │   │       └── _journal.json
+│   │   ├── queries.ts
+│   │   ├── schema.ts
+│   │   ├── seed.ts
+│   │   └── setup.ts
+│   ├── payments
+│   │   ├── actions.ts
+│   │   └── stripe.ts
+│   └── utils.ts
+├── middleware.ts
+├── next-env.d.ts
+├── next.config.ts
+├── nextjsStarter_README.md
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.mjs
+├── tailwind.config.ts
+├── tree2.txt
+├── tree3.txt
+└── tsconfig.json
