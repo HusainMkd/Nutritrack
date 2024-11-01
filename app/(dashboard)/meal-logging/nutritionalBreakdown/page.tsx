@@ -7,7 +7,7 @@ import { Button } from '../../../../components/ui/button';
 import { useSwipeable } from 'react-swipeable';
 
 export default function NutritionalBreakdownPage() {
-  const { detectedItems } = useContext(MealLoggingContext);
+  const { detectedItems, image } = useContext(MealLoggingContext);
   const router = useRouter();
 
   const handleNext = () => {
@@ -33,7 +33,11 @@ export default function NutritionalBreakdownPage() {
   }
 
   return (
-    <div {...handlers}>
+    <div
+      className="w-full h-full bg-cover bg-center bg-no-repeat flex items-center justify-center"
+      style={{ backgroundImage: `url(${image})` }} // Set background
+      {...handlers}
+    >
       <NutritionalBreakdown detectedItems={detectedItems} />
       {/* <div className="mt-4 flex justify-between">
         <Button onClick={handleBack}>Back</Button>

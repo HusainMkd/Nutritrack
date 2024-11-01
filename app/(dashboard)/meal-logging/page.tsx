@@ -12,6 +12,7 @@ export default function MealLoggingPage() {
     setDetectedItems,
     setLoading,
     setError,
+    image,
   } = useContext(MealLoggingContext);
   
   const router = useRouter();
@@ -40,7 +41,8 @@ export default function MealLoggingPage() {
 
   return (
     <div
-      className="fixed inset-0 flex flex-col items-center justify-center bg-white"
+      className="fixed inset-0 flex flex-col items-center justify-center bg-white bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${image})` }} // Set background
       {...handlers} // Attach swipe handlers
     >
       <div className="relative w-full h-full">
