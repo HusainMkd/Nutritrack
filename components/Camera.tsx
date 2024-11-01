@@ -17,7 +17,7 @@ const Camera: React.FC<CameraProps> = ({ onCapture, className }) => {
 
   const startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
       }
@@ -48,7 +48,7 @@ const Camera: React.FC<CameraProps> = ({ onCapture, className }) => {
 
   return (
     <div className={`relative camera-container ${className}`}> {/* Apply Tailwind classes */}
-      <video ref={videoRef} autoPlay className="w-full h-full object-cover rounded-lg" />
+      <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover rounded-lg" />
       {/* Information Overlay */}
       {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-75 p-2 rounded text-center">
         <p>Align your meal within the frame and capture.</p>
