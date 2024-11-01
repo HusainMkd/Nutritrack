@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, useRef, ReactNode } from 'react';
 
 // Define the structure of detected nutritional items
 interface DetectedItems {
@@ -21,6 +21,8 @@ interface MealLoggingContextProps {
   setLoading: (loading: boolean) => void;
   error: string | null;
   setError: (error: string | null) => void;
+  registerStopCamera: (stopCamera: () => void) => void; // Add registerStopCamera
+  stopCamera: () => void; // Add stopCamera method
 }
 
 // Create the MealLoggingContext with default values
@@ -33,6 +35,8 @@ export const MealLoggingContext = createContext<MealLoggingContextProps>({
   setLoading: () => {},
   error: null,
   setError: () => {},
+  registerStopCamera: () => {}, // Initialize as empty function
+  stopCamera: () => {}, // Initialize as empty function
 });
 
 // Define the provider component's props
@@ -54,6 +58,18 @@ export const MealLoggingProvider: React.FC<MealLoggingProviderProps> = ({ childr
   // State to manage any error messages during the process
   const [error, setError] = useState<string | null>(null);
 
+  const stopCameraRef = useRef<() => void>(() => {});
+
+  const registerStopCamera = (stopCamera: () => void) => {
+    stopCameraRef.current = stopCamera;
+  };
+
+  const stopCamera = () => {
+    if (stopCameraRef.current) {
+      stopCameraRef.current();
+    }
+  };
+
   return (
     <MealLoggingContext.Provider
       value={{
@@ -65,6 +81,8 @@ export const MealLoggingProvider: React.FC<MealLoggingProviderProps> = ({ childr
         setLoading,
         error,
         setError,
+        registerStopCamera, // Provide registerStopCamera
+        stopCamera, // Provide stopCamera method
       }}
     >
       {children}

@@ -1,18 +1,22 @@
 "use client";
-import React, { ReactNode } from 'react';
-import { MealLoggingProvider } from './MealLoggingContext';
-import { useRouter, usePathname } from 'next/navigation'; // Import usePathname
+import React, { ReactNode, useContext } from 'react';
+import { MealLoggingProvider, MealLoggingContext } from './MealLoggingContext'; // Use original MealLoggingContext
+import { useRouter, usePathname } from 'next/navigation';
 import { useSwipeable } from 'react-swipeable';
 import { Button } from '../../../components/ui/button';
 
 export default function MealLoggingLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const pathname = usePathname(); // Get current pathname
+  const pathname = usePathname();
+  const mealLoggingContext = useContext(MealLoggingContext); // Access context
 
   const handleArrowNavigation = (direction: 'left' | 'right') => {
+    if (mealLoggingContext) {
+      mealLoggingContext.stopCamera(); // Stop camera before navigation
+    }
     // Define routing logic based on direction and current pathname
     switch (pathname) {
-        case '/meal-logging':
+      case '/meal-logging':
         if (direction === 'left') router.push('/meal-logging/results');
         else if (direction === 'right') router.push('/');
         break;

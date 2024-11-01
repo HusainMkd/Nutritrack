@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react';
-
+import { useRef, useEffect, useContext } from 'react';
+import { MealLoggingContext } from '../app/(dashboard)/meal-logging/MealLoggingContext'; 
 interface CameraProps {
   onCapture: (image: string) => void;
   className?: string; // Add className prop
@@ -7,9 +7,13 @@ interface CameraProps {
 
 const Camera: React.FC<CameraProps> = ({ onCapture, className }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const mealLoggingContext = useContext(MealLoggingContext);
 
   useEffect(() => {
     startCamera();
+    if (mealLoggingContext) {
+      mealLoggingContext.registerStopCamera(stopCamera); // Register stopCamera
+    }
     return () => {
       stopCamera();
     };

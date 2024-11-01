@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { MealLoggingContext } from './MealLoggingContext';
 import Camera from '../../../components/Camera';
 import { submitMealImage } from '../../../lib/api';
@@ -38,12 +38,6 @@ export default function MealLoggingPage() {
     onSwipedRight: () => router.push('/'), // 
     trackMouse: true,
   });
-
-  useEffect(() => {
-    return () => {
-      // Cleanup code to stop the camera
-    };
-  }, []);
 
   return (
     <div
